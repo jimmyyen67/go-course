@@ -71,7 +71,7 @@ func main() {
 			fileops.WriteFloatToFile(accountBalance, accountBalanceFile)
 		default:
 			fmt.Println("Goodbye!")
-			fmt.Println("Thanks for choosing our bank.")
+			fmt.Println("Thanks for choosing our 2_bank.")
 			return
 		}
 	}
