@@ -6,12 +6,22 @@ import (
 	"fmt"
 )
 
+type str string
+
+func (text str) log() {
+	fmt.Println(text)
+}
+
 func main() {
+	var name str
+	name = "Jimmy"
+	name.log()
+
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	var appUser *user.User
+	//var appUser *user.User
 	appUser, err := user.New(userFirstName, userLastName, userBirthdate)
 	if err != nil {
 		fmt.Println(err)
