@@ -11,3 +11,14 @@ Throughout this course, I explored:
 - **Concurrent Programming**: Mastering goroutines and channels for efficient concurrency.
 - **Real-World Applications**: Building a REST API with user authentication and SQL database integration.
 - **Optimization**: Implementing best practices for efficient Go code.
+
+### Course Project: Build a REST API
+ - **GET** `/events` Get a list of available events
+ - **GET** `/events/{id}` Get a specific event
+ - **POST** `/events` Create a new bookable event -> Auth Required
+ - **PUT** `/events/{id}` Update an event -> Auth Required & Creator Only
+ - **DELETE** `/events/{id}` Delete an event -> Auth Required & Creator Only
+ - **POST** `/signup` Create new user
+ - **POST** `/login` Authenticate user -> Auth Token (JWT)
+ - **POST** `/events/{id}/register` Register user for event -> Auth Required
+ - **DELETE** `/events/{id}/register` Cancel registration -> Auth Required
