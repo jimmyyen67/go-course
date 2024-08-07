@@ -15,7 +15,7 @@ type Event struct {
 	UserID      int
 }
 
-var events []Event
+// var events []Event
 
 func (e Event) Save() error {
 	query := `
@@ -31,8 +31,8 @@ func (e Event) Save() error {
 	if err != nil {
 		return err
 	}
-	id, err := result.LastInsertId()
-	e.ID = id
+	_, err = result.LastInsertId()
+	// e.ID = id
 	return err
 }
 
@@ -43,7 +43,7 @@ func GetAllEvents() ([]Event, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	// var events []Event
+	var events []Event
 	for rows.Next() {
 		var event Event
 		err := rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserID)
@@ -64,4 +64,32 @@ func GetEventByID(id int64) (*Event, error) {
 		return nil, err
 	}
 	return &event, nil
+}
+
+func (event Event) Update() error {
+	query := `
+	UPDATE events
+	SET name = ?, description = ?, location = ?, dateTime = ?
+	WHERE id = ?
+	`
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+
+	defer stmt.Close()
+
+	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+	return err
+}
+
+func (event Event) Delete() error {
+	query := "DELETE FROM events WHERE id = ?;"
+	stmt, err := db.DB.Prepare(query)
+	if err != err {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(event.ID)
+	return err
 }
